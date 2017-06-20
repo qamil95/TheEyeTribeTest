@@ -9,10 +9,13 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using EyeTribe.ClientSdk.Data;
+using System.Threading;
 
 namespace TheEyeTribeTest
 {
-    public partial class MainApp : Form, IGazeListener
+    public partial class MainApp : 
+        InvokeForm, 
+        IGazeListener
     {
         public MainApp()
         {
@@ -21,23 +24,23 @@ namespace TheEyeTribeTest
 
         public void OnGazeUpdate(GazeData gazeData)
         {
-            /*
-            double x, y;
-            x = this.Size.Width * point.PercentX;
-            y = this.Size.Height * point.PercentY;
-            toolStripStatusLabelX.Text = "X: " + point.GX.ToString() + ' ' + point.PercentX.ToString();
-            toolStripStatusLabelY.Text = " | Y: " + point.GY.ToString() + ' ' + point.PercentY.ToString();
+            DoInvoke(() => { GazeUpdate(gazeData.SmoothedCoordinates.X, gazeData.SmoothedCoordinates.Y); });            
+        }
+        private void GazeUpdate(double x, double y)
+        {
+            double percentX = x / GazeManager.Instance.ScreenResolutionWidth;
+            double percentY = y / GazeManager.Instance.ScreenResolutionHeight;
+            toolStripStatusLabelX.Text = "X: " + x.ToString() + ' ' + percentX.ToString();
+            toolStripStatusLabelY.Text = " | Y: " + y.ToString() + ' ' + percentY.ToString();
 
-            radioButtonPosition.Location = new System.Drawing.Point((int)x, (int)y);
-            if (point.PercentX < 0.1)
-                buttonPosition.Location = new System.Drawing.Point(10, (int)y - (buttonPosition.Size.Height / 2));
+            radioButtonPosition.Location = new Point((int)(Size.Width * percentX), (int)(Size.Height * percentY));
+            if (percentX < 0.1)
+                buttonPosition.Location = new Point(10, (int)(Size.Height * percentY) - (buttonPosition.Size.Height / 2));
+        }
 
-            ////////
-            gX = gazeData.SmoothedCoordinates.X;
-            percentX = gX / GazeManager.Instance.ScreenResolutionWidth;
-            gY = gazeData.SmoothedCoordinates.Y;
-            percentY = gY / GazeManager.Instance.ScreenResolutionHeight;
-            */
+        private void MainApp_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            GazeManager.Instance.RemoveGazeListener(this);
         }
     }
 }

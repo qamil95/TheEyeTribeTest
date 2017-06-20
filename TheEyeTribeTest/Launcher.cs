@@ -11,14 +11,15 @@ using System.Windows.Forms;
 
 namespace TheEyeTribeTest
 {
-    public partial class Launcher : Form, 
+    public partial class Launcher :
+        InvokeForm, 
         IConnectionStateListener, 
         ITrackerStateListener
     {
         public Launcher()
         {
             InitializeComponent();
-            checkBoxActivated.Checked =  GazeManager.Instance.Activate(GazeManagerCore.ApiVersion.VERSION_1_0);
+            textBoxActivated.Text =  GazeManager.Instance.Activate(GazeManagerCore.ApiVersion.VERSION_1_0).ToString();
             GazeManager.Instance.AddConnectionStateListener(this);
             GazeManager.Instance.AddTrackerStateListener(this);
 
@@ -27,7 +28,7 @@ namespace TheEyeTribeTest
 
         public void OnConnectionStateChanged(bool isConnected)
         {
-            DoInvoke(() => checkBoxActivated.Checked = isConnected);
+            DoInvoke(() => textBoxActivated.Text = isConnected.ToString());
         }
 
         public void OnTrackerStateChanged(GazeManagerCore.TrackerState trackerState)
@@ -40,25 +41,13 @@ namespace TheEyeTribeTest
             MainApp window = new MainApp();
             GazeManager.Instance.AddGazeListener(window);
             Hide();
-            window.ShowDialog();
-            Show();
-            GazeManager.Instance.RemoveGazeListener(window);
+            window.ShowDialog();            
+            Show();            
         }
 
         private void Launcher_FormClosed(object sender, FormClosedEventArgs e)
         {
             GazeManager.Instance.Deactivate();
-        }
-        private void DoInvoke(MethodInvoker del)
-        {
-            if (InvokeRequired)
-            {
-                Invoke(del);
-            }
-            else
-            {
-                del();
-            }
-        }
+        }        
     }
 }

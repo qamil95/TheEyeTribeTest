@@ -78,7 +78,7 @@
             this.buttonPosition.Text = "button1";
             this.buttonPosition.UseVisualStyleBackColor = true;
             // 
-            // Form1
+            // MainApp
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -86,10 +86,11 @@
             this.Controls.Add(this.buttonPosition);
             this.Controls.Add(this.radioButtonPosition);
             this.Controls.Add(this.statusStrip1);
-            this.Name = "Form1";
+            this.Name = "MainApp";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form1";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainApp_FormClosed);
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
             this.ResumeLayout(false);
