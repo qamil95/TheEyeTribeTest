@@ -27,12 +27,12 @@ namespace TheEyeTribeTest
 
         public void OnConnectionStateChanged(bool isConnected)
         {
-            checkBoxActivated.Checked = isConnected;
+            DoInvoke(() => checkBoxActivated.Checked = isConnected);
         }
 
         public void OnTrackerStateChanged(GazeManagerCore.TrackerState trackerState)
         {
-            textBoxTrackerState.Text = trackerState.ToString();
+            DoInvoke(() => textBoxTrackerState.Text = trackerState.ToString());
         }
 
         private void buttonStartApp_Click(object sender, EventArgs e)
@@ -48,6 +48,17 @@ namespace TheEyeTribeTest
         private void Launcher_FormClosed(object sender, FormClosedEventArgs e)
         {
             GazeManager.Instance.Deactivate();
+        }
+        private void DoInvoke(MethodInvoker del)
+        {
+            if (InvokeRequired)
+            {
+                Invoke(del);
+            }
+            else
+            {
+                del();
+            }
         }
     }
 }
