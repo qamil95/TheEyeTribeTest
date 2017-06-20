@@ -11,12 +11,28 @@ using System.Windows.Forms;
 
 namespace TheEyeTribeTest
 {
-    public partial class Launcher : Form
+    public partial class Launcher : Form, 
+        IConnectionStateListener, 
+        ITrackerStateListener
     {
         public Launcher()
         {
             InitializeComponent();
-            checkBoxActivated.Checked =  GazeManager.Instance.Activate(GazeManagerCore.ApiVersion.VERSION_1_0);            
+            checkBoxActivated.Checked =  GazeManager.Instance.Activate(GazeManagerCore.ApiVersion.VERSION_1_0);
+            GazeManager.Instance.AddConnectionStateListener(this);
+            GazeManager.Instance.AddTrackerStateListener(this);
+
+            textBoxTrackerState.Text = GazeManager.Instance.Trackerstate.ToString();
+        }
+
+        public void OnConnectionStateChanged(bool isConnected)
+        {
+            checkBoxActivated.Checked = isConnected;
+        }
+
+        public void OnTrackerStateChanged(GazeManagerCore.TrackerState trackerState)
+        {
+            textBoxTrackerState.Text = trackerState.ToString();
         }
 
         private void buttonStartApp_Click(object sender, EventArgs e)

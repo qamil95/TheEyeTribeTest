@@ -30,6 +30,8 @@
         {
             this.buttonStartApp = new System.Windows.Forms.Button();
             this.checkBoxActivated = new System.Windows.Forms.CheckBox();
+            this.textBoxTrackerState = new System.Windows.Forms.TextBox();
+            this.labelTrackerState = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // buttonStartApp
@@ -48,18 +50,36 @@
             this.checkBoxActivated.AutoSize = true;
             this.checkBoxActivated.BackColor = System.Drawing.SystemColors.Control;
             this.checkBoxActivated.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.checkBoxActivated.Location = new System.Drawing.Point(13, 13);
+            this.checkBoxActivated.Location = new System.Drawing.Point(168, 14);
             this.checkBoxActivated.Name = "checkBoxActivated";
             this.checkBoxActivated.Size = new System.Drawing.Size(168, 17);
             this.checkBoxActivated.TabIndex = 1;
             this.checkBoxActivated.Text = "TheEyeTribe Server activated";
             this.checkBoxActivated.UseVisualStyleBackColor = false;
             // 
+            // textBoxTrackerState
+            // 
+            this.textBoxTrackerState.Location = new System.Drawing.Point(13, 37);
+            this.textBoxTrackerState.Name = "textBoxTrackerState";
+            this.textBoxTrackerState.Size = new System.Drawing.Size(168, 20);
+            this.textBoxTrackerState.TabIndex = 2;
+            // 
+            // labelTrackerState
+            // 
+            this.labelTrackerState.AutoSize = true;
+            this.labelTrackerState.Location = new System.Drawing.Point(187, 40);
+            this.labelTrackerState.Name = "labelTrackerState";
+            this.labelTrackerState.Size = new System.Drawing.Size(70, 13);
+            this.labelTrackerState.TabIndex = 3;
+            this.labelTrackerState.Text = "Tracker state";
+            // 
             // Launcher
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(384, 362);
+            this.Controls.Add(this.labelTrackerState);
+            this.Controls.Add(this.textBoxTrackerState);
             this.Controls.Add(this.checkBoxActivated);
             this.Controls.Add(this.buttonStartApp);
             this.Name = "Launcher";
@@ -75,5 +95,7 @@
 
         private System.Windows.Forms.Button buttonStartApp;
         private System.Windows.Forms.CheckBox checkBoxActivated;
+        private System.Windows.Forms.TextBox textBoxTrackerState;
+        private System.Windows.Forms.Label labelTrackerState;
     }
 }
