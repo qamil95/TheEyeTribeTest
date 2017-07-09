@@ -1,6 +1,6 @@
 ﻿namespace TheEyeTribeTest
 {
-    partial class MainApp
+    partial class AppWinforms
     {
         /// <summary>
         /// Required designer variable.
@@ -78,7 +78,7 @@
             this.buttonPosition.Text = "button1";
             this.buttonPosition.UseVisualStyleBackColor = true;
             // 
-            // MainApp
+            // AppWinforms
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -86,9 +86,9 @@
             this.Controls.Add(this.buttonPosition);
             this.Controls.Add(this.radioButtonPosition);
             this.Controls.Add(this.statusStrip1);
-            this.Name = "MainApp";
+            this.Name = "AppWinforms";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Form1";
+            this.Text = "Winforms";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainApp_FormClosed);
             this.statusStrip1.ResumeLayout(false);

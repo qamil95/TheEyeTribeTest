@@ -63,19 +63,19 @@
     <Compile Include="Launcher.Designer.cs">
       <DependentUpon>Launcher.cs</DependentUpon>
     </Compile>
-    <Compile Include="MainApp.cs">
+    <Compile Include="AppWinforms.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MainApp.Designer.cs">
-      <DependentUpon>MainApp.cs</DependentUpon>
+    <Compile Include="AppWinforms.Designer.cs">
+      <DependentUpon>AppWinforms.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Launcher.resx">
       <DependentUpon>Launcher.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="MainApp.resx">
-      <DependentUpon>MainApp.cs</DependentUpon>
+    <EmbeddedResource Include="AppWinforms.resx">
+      <DependentUpon>AppWinforms.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

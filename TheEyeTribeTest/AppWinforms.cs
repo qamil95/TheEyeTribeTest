@@ -13,11 +13,11 @@ using System.Threading;
 
 namespace TheEyeTribeTest
 {
-    public partial class MainApp : 
+    public partial class AppWinforms : 
         InvokeForm, 
         IGazeListener
     {
-        public MainApp()
+        public AppWinforms()
         {
             InitializeComponent();
         }       

@@ -38,7 +38,7 @@ namespace TheEyeTribeTest
 
         private void buttonStartApp_Click(object sender, EventArgs e)
         {
-            MainApp window = new MainApp();
+            AppWinforms window = new AppWinforms();
             GazeManager.Instance.AddGazeListener(window);
             Hide();
             window.ShowDialog();            
