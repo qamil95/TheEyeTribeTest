@@ -30,9 +30,10 @@
         {
             this.labelTrackerState = new System.Windows.Forms.Label();
             this.textBoxTrackerState = new System.Windows.Forms.TextBox();
-            this.buttonStartApp = new System.Windows.Forms.Button();
+            this.buttonStartWinformsApp = new System.Windows.Forms.Button();
             this.textBoxActivated = new System.Windows.Forms.TextBox();
             this.labelAcivated = new System.Windows.Forms.Label();
+            this.buttonStartSfmlApp = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // labelTrackerState
@@ -53,15 +54,15 @@
             this.textBoxTrackerState.TabIndex = 2;
             this.textBoxTrackerState.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
-            // buttonStartApp
+            // buttonStartWinformsApp
             // 
-            this.buttonStartApp.Location = new System.Drawing.Point(12, 327);
-            this.buttonStartApp.Name = "buttonStartApp";
-            this.buttonStartApp.Size = new System.Drawing.Size(360, 23);
-            this.buttonStartApp.TabIndex = 0;
-            this.buttonStartApp.Text = "Start app";
-            this.buttonStartApp.UseVisualStyleBackColor = true;
-            this.buttonStartApp.Click += new System.EventHandler(this.buttonStartApp_Click);
+            this.buttonStartWinformsApp.Location = new System.Drawing.Point(12, 327);
+            this.buttonStartWinformsApp.Name = "buttonStartWinformsApp";
+            this.buttonStartWinformsApp.Size = new System.Drawing.Size(360, 23);
+            this.buttonStartWinformsApp.TabIndex = 0;
+            this.buttonStartWinformsApp.Text = "Start winforms app";
+            this.buttonStartWinformsApp.UseVisualStyleBackColor = true;
+            this.buttonStartWinformsApp.Click += new System.EventHandler(this.buttonStartApp_Click);
             // 
             // textBoxActivated
             // 
@@ -81,16 +82,27 @@
             this.labelAcivated.TabIndex = 5;
             this.labelAcivated.Text = "TheEyeTrivbe server activated";
             // 
+            // buttonStartSfmlApp
+            // 
+            this.buttonStartSfmlApp.Location = new System.Drawing.Point(13, 298);
+            this.buttonStartSfmlApp.Name = "buttonStartSfmlApp";
+            this.buttonStartSfmlApp.Size = new System.Drawing.Size(359, 23);
+            this.buttonStartSfmlApp.TabIndex = 6;
+            this.buttonStartSfmlApp.Text = "Start SFML App";
+            this.buttonStartSfmlApp.UseVisualStyleBackColor = true;
+            this.buttonStartSfmlApp.Click += new System.EventHandler(this.buttonStartSfmlApp_Click);
+            // 
             // Launcher
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(384, 362);
+            this.Controls.Add(this.buttonStartSfmlApp);
             this.Controls.Add(this.labelAcivated);
             this.Controls.Add(this.textBoxActivated);
             this.Controls.Add(this.labelTrackerState);
             this.Controls.Add(this.textBoxTrackerState);
-            this.Controls.Add(this.buttonStartApp);
+            this.Controls.Add(this.buttonStartWinformsApp);
             this.Name = "Launcher";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Launcher";
@@ -102,10 +114,11 @@
 
         #endregion
 
-        private System.Windows.Forms.Button buttonStartApp;
+        private System.Windows.Forms.Button buttonStartWinformsApp;
         private System.Windows.Forms.TextBox textBoxTrackerState;
         private System.Windows.Forms.Label labelTrackerState;
         private System.Windows.Forms.TextBox textBoxActivated;
         private System.Windows.Forms.Label labelAcivated;
+        private System.Windows.Forms.Button buttonStartSfmlApp;
     }
 }

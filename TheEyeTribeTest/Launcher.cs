@@ -48,6 +48,12 @@ namespace TheEyeTribeTest
         private void Launcher_FormClosed(object sender, FormClosedEventArgs e)
         {
             GazeManager.Instance.Deactivate();
-        }        
+        }
+
+        private void buttonStartSfmlApp_Click(object sender, EventArgs e)
+        {
+            SFML_Test test = new SFML_Test();
+            test.Run();
+        }
     }
 }
