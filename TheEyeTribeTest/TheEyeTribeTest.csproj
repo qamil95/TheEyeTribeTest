@@ -66,6 +66,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EyeData.cs" />
     <Compile Include="InvokeForm.cs">
       <SubType>Form</SubType>
     </Compile>

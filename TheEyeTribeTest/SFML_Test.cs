@@ -1,16 +1,19 @@
 ﻿using SFML.Graphics;
 using SFML.Window;
-using SFML;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using EyeTribe.ClientSdk;
 
 namespace TheEyeTribeTest
 {
     class SFML_Test
     {
+        private readonly EyeData _eyeData;
+        public SFML_Test()
+        {
+            _eyeData = new EyeData();
+            GazeManager.Instance.AddGazeListener(_eyeData);
+        }
+
         void OnClose(object sender, EventArgs e)
         {
             // Close the window when OnClose event is received
@@ -22,8 +25,8 @@ namespace TheEyeTribeTest
         {
             // Create the main window
             RenderWindow app = new RenderWindow(new VideoMode(800, 600), "SFML Works!");
-            app.Closed += new EventHandler(OnClose);
-
+            app.Closed += OnClose;
+            
             Color windowColor = new Color(0, 192, 255);
 
             // Start the game loop
@@ -34,7 +37,7 @@ namespace TheEyeTribeTest
 
                 // Clear screen
                 app.Clear(windowColor);
-
+                
                 // Update the window
                 app.Display();
             } //End game loop
