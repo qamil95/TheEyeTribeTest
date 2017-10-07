@@ -66,29 +66,33 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="EyeData.cs" />
-    <Compile Include="InvokeForm.cs">
+    <Compile Include="Files\Ball.cs" />
+    <Compile Include="Files\EyeData.cs" />
+    <Compile Include="Files\ICursorPosition.cs" />
+    <Compile Include="Files\MouseData.cs" />
+    <Compile Include="Files\Paddle.cs" />
+    <Compile Include="UI\InvokeForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Launcher.cs">
+    <Compile Include="UI\Launcher.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Launcher.Designer.cs">
+    <Compile Include="UI\Launcher.Designer.cs">
       <DependentUpon>Launcher.cs</DependentUpon>
     </Compile>
-    <Compile Include="AppWinforms.cs">
+    <Compile Include="UI\AppWinforms.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AppWinforms.Designer.cs">
+    <Compile Include="UI\AppWinforms.Designer.cs">
       <DependentUpon>AppWinforms.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SFML_Test.cs" />
-    <EmbeddedResource Include="Launcher.resx">
+    <Compile Include="UI\SFML_Test.cs" />
+    <EmbeddedResource Include="UI\Launcher.resx">
       <DependentUpon>Launcher.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="AppWinforms.resx">
+    <EmbeddedResource Include="UI\AppWinforms.resx">
       <DependentUpon>AppWinforms.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">

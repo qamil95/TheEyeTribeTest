@@ -45,7 +45,7 @@ namespace TheEyeTribeTest
 
         private void buttonStartSfmlApp_Click(object sender, EventArgs e)
         {
-            SFML_Test test = new SFML_Test();
+            SFML_Test test = new SFML_Test(checkBoxEyeTribeMode.Checked);
             test.Run();
         }
     }

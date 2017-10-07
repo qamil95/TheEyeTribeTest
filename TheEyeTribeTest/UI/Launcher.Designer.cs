@@ -34,6 +34,7 @@
             this.textBoxActivated = new System.Windows.Forms.TextBox();
             this.labelAcivated = new System.Windows.Forms.Label();
             this.buttonStartSfmlApp = new System.Windows.Forms.Button();
+            this.checkBoxEyeTribeMode = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // labelTrackerState
@@ -92,11 +93,22 @@
             this.buttonStartSfmlApp.UseVisualStyleBackColor = true;
             this.buttonStartSfmlApp.Click += new System.EventHandler(this.buttonStartSfmlApp_Click);
             // 
+            // checkBoxEyeTribeMode
+            // 
+            this.checkBoxEyeTribeMode.AutoSize = true;
+            this.checkBoxEyeTribeMode.Location = new System.Drawing.Point(13, 64);
+            this.checkBoxEyeTribeMode.Name = "checkBoxEyeTribeMode";
+            this.checkBoxEyeTribeMode.Size = new System.Drawing.Size(97, 17);
+            this.checkBoxEyeTribeMode.TabIndex = 7;
+            this.checkBoxEyeTribeMode.Text = "EyeTribe mode";
+            this.checkBoxEyeTribeMode.UseVisualStyleBackColor = true;
+            // 
             // Launcher
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(384, 362);
+            this.Controls.Add(this.checkBoxEyeTribeMode);
             this.Controls.Add(this.buttonStartSfmlApp);
             this.Controls.Add(this.labelAcivated);
             this.Controls.Add(this.textBoxActivated);
@@ -120,5 +132,6 @@
         private System.Windows.Forms.TextBox textBoxActivated;
         private System.Windows.Forms.Label labelAcivated;
         private System.Windows.Forms.Button buttonStartSfmlApp;
+        private System.Windows.Forms.CheckBox checkBoxEyeTribeMode;
     }
 }
