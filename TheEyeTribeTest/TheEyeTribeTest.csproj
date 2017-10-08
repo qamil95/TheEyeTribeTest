@@ -67,6 +67,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Files\Ball.cs" />
+    <Compile Include="Files\CentralText.cs" />
     <Compile Include="Files\EyeData.cs" />
     <Compile Include="Files\ICursorPosition.cs" />
     <Compile Include="Files\MouseData.cs" />
@@ -104,6 +105,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <None Include="consola.ttf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

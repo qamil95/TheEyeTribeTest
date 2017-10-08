@@ -8,11 +8,11 @@ namespace TheEyeTribeTest.Files
     class Ball : CircleShape
     {
         public float Speed { get; }
-        private double angle;
+        public double Angle { get; set; }
 
         public Ball()
         {
-            angle = 0;
+            Angle = 0;
             Speed = 10;
 
             Radius = 10;
@@ -24,14 +24,14 @@ namespace TheEyeTribeTest.Files
         {
             do
             {
-                angle = new Random().Next(360)*2*Math.PI / 360;
-            } while (Math.Abs(Math.Cos(angle)) < 0.7);
+                Angle = new Random().Next(360)*2*Math.PI / 360;
+            } while (Math.Abs(Math.Cos(Angle)) < 0.7);
         }
 
         public void UpdateBallPosition()
         {
             var factor = Speed;
-            Move(Math.Cos(angle) * factor, Math.Sin(angle) * factor);
+            Move(Math.Cos(Angle) * factor, Math.Sin(Angle) * factor);
         }
 
         private void Move(double x, double y)
