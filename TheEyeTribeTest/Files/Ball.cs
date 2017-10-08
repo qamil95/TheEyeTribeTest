@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.CompilerServices;
 using SFML.Graphics;
 using SFML.System;
 
@@ -12,7 +13,7 @@ namespace TheEyeTribeTest.Files
         public Ball()
         {
             angle = 0;
-            Speed = 400;
+            Speed = 10;
 
             Radius = 10;
             FillColor = Color.White;
@@ -23,8 +24,19 @@ namespace TheEyeTribeTest.Files
         {
             do
             {
-                angle = new Random(360).Next()*2*Math.PI;
+                angle = new Random().Next(360)*2*Math.PI / 360;
             } while (Math.Abs(Math.Cos(angle)) < 0.7);
+        }
+
+        public void UpdateBallPosition()
+        {
+            var factor = Speed;
+            Move(Math.Cos(angle) * factor, Math.Sin(angle) * factor);
+        }
+
+        private void Move(double x, double y)
+        {
+            Position = Position + new Vector2f((float)x, (float)y);
         }
     }
 }

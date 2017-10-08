@@ -50,7 +50,10 @@ namespace TheEyeTribeTest
                 
                 app.Clear(windowColor);
 
+                ball.UpdateBallPosition();
                 leftPaddle.Position = new Vector2f(leftPaddle.Position.X, cursorPosition.GetCursorPosition().Y);
+                rightPaddle.Position = new Vector2f(rightPaddle.Position.X, ball.Position.Y);
+
                 app.Draw(leftPaddle);
                 app.Draw(rightPaddle);
                 app.Draw(ball);
