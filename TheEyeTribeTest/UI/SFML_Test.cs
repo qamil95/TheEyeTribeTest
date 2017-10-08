@@ -18,6 +18,8 @@ namespace TheEyeTribeTest
         private readonly RectangleShape [] borders;
         private readonly RenderWindow app;
         private readonly CentralText result;
+        private int leftPoints;
+        private int rightPoints;
 
         public SFML_Test(bool eyeTribeMode)
         {
@@ -56,7 +58,7 @@ namespace TheEyeTribeTest
                 Font = new Font("consola.ttf"),
                 Color = Color.Yellow
             };
-            result.SetText("Pong started...");
+            result.SetText($"LEFT {leftPoints} -||- {rightPoints} RIGHT");
 
             app.Closed += OnClose;
             app.KeyPressed += OnKeyPressed;
@@ -78,9 +80,7 @@ namespace TheEyeTribeTest
                 ball.UpdateBallPosition();
                 leftPaddle.Position = new Vector2f(leftPaddle.Position.X, cursorPosition.GetCursorPosition().Y);
                 rightPaddle.Position = new Vector2f(rightPaddle.Position.X, ball.Position.Y);
-
-                CheckCollisions();
-
+                
                 app.Draw(leftPaddle);
                 app.Draw(rightPaddle);
                 app.Draw(ball);
@@ -92,6 +92,8 @@ namespace TheEyeTribeTest
                 }
 
                 app.Display();
+
+                CheckCollisions();
             }
         }
 
@@ -100,25 +102,26 @@ namespace TheEyeTribeTest
             var ballBounds = ball.GetGlobalBounds();
             if (ballBounds.Intersects(borders[0].GetGlobalBounds()))
             {
-                result.SetText("HIT upper");
                 ball.Angle = -ball.Angle;
             }
             if (ballBounds.Intersects(borders[1].GetGlobalBounds()))
             {
-                result.SetText("HIT right");
+                leftPoints++;
+                result.SetText($"LEFT {leftPoints} -||- {rightPoints} RIGHT");
+                ResetGame();
             }
             if (ballBounds.Intersects(borders[2].GetGlobalBounds()))
             {
-                result.SetText("HIT bottom");
                 ball.Angle = -ball.Angle;
             }
             if (ballBounds.Intersects(borders[3].GetGlobalBounds()))
             {
-                result.SetText("HIT left");
+                rightPoints++;
+                result.SetText($"LEFT {leftPoints} -||- {rightPoints} RIGHT");
+                ResetGame();
             }
             if (ballBounds.Intersects(leftPaddle.GetGlobalBounds()))
             {
-                result.SetText("HIT left paddle");
                 if (ball.Position.Y > leftPaddle.Position.Y)
                 {
                     ball.Angle = Math.PI - ball.Angle + new Random().Next(20) * Math.PI / 180;
@@ -130,7 +133,6 @@ namespace TheEyeTribeTest
             }
             if (ballBounds.Intersects(rightPaddle.GetGlobalBounds()))
             {
-                result.SetText("HIT right paddle");
                 if (ball.Position.Y > rightPaddle.Position.Y)
                 {
                     ball.Angle = Math.PI - ball.Angle + new Random().Next(20) * Math.PI / 180;
