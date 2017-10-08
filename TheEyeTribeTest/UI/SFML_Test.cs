@@ -15,8 +15,12 @@ namespace TheEyeTribeTest
         private readonly Ball ball;
         private readonly Paddle leftPaddle;
         private readonly Paddle rightPaddle;
+        private readonly RectangleShape [] borders;
+        private readonly RenderWindow app;
         public SFML_Test(bool eyeTribeMode)
         {
+            app = new RenderWindow(VideoMode.DesktopMode, "SFML Test PONG!", Styles.Fullscreen);
+
             if (eyeTribeMode)
             {
                 var eye = new EyeData();
@@ -31,15 +35,14 @@ namespace TheEyeTribeTest
             ball = new Ball();
             leftPaddle = new Paddle();
             rightPaddle = new Paddle();
+            borders = new RectangleShape[4];
         }
 
         public void Run()
         {
-            RenderWindow app = new RenderWindow(VideoMode.DesktopMode, "SFML Test PONG!", Styles.Fullscreen);
             app.Closed += OnClose;
             app.KeyPressed += OnKeyPressed;
             app.SetVerticalSyncEnabled(true);
-            app.SetFramerateLimit(60);
             ResetGame();
 
             Color windowColor = new Color(0, 0, 0);
@@ -58,6 +61,11 @@ namespace TheEyeTribeTest
                 app.Draw(rightPaddle);
                 app.Draw(ball);
 
+                foreach (var border in borders)
+                {
+                    app.Draw(border);
+                }
+
                 app.Display();
             }
         }
@@ -66,8 +74,20 @@ namespace TheEyeTribeTest
         {
             leftPaddle.Position = new Vector2f(10 + leftPaddle.Size.X, leftPaddle.Size.Y);
             rightPaddle.Position = new Vector2f(VideoMode.DesktopMode.Width - 10 - rightPaddle.Size.X, rightPaddle.Size.Y);
-            ball.Position = new Vector2f(VideoMode.DesktopMode.Width / 2 , VideoMode.DesktopMode.Height / 2);
+            ball.Position = new Vector2f((float)VideoMode.DesktopMode.Width / 2 , (float)VideoMode.DesktopMode.Height / 2);
             ball.RandomAngle();
+
+            borders[0] = new RectangleShape(new Vector2f(app.Size.X, 3))
+            { Position = new Vector2f(0, 0)};
+
+            borders[1] = new RectangleShape(new Vector2f(3, app.Size.Y))
+            { Position = new Vector2f(app.Size.X - 3, 0)};
+
+            borders[2] = new RectangleShape(new Vector2f(app.Size.X, 3))
+            { Position = new Vector2f(0, app.Size.Y - 3)};
+
+            borders[3] = new RectangleShape(new Vector2f(3, app.Size.Y))
+            { Position = new Vector2f(0, 0)};
         }
 
         #region Events
@@ -85,7 +105,6 @@ namespace TheEyeTribeTest
 
         private void OnKeyPressed(object sender, KeyEventArgs keyPressed)
         {
-            var window = (RenderWindow)sender;
             switch (keyPressed.Code)
             {
                 case Keyboard.Key.Escape:
