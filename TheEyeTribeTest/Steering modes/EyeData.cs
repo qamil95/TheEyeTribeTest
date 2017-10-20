@@ -1,8 +1,7 @@
 ﻿using EyeTribe.ClientSdk;
 using EyeTribe.ClientSdk.Data;
-using TheEyeTribeTest.Files;
 
-namespace TheEyeTribeTest
+namespace TheEyeTribeTest.Steering_modes
 {
     class EyeData : IGazeListener, ICursorHeight
     {

@@ -1,6 +1,7 @@
 ﻿using EyeTribe.ClientSdk;
 using SFML.Graphics;
 using SFML.System;
+using TheEyeTribeTest.Steering_modes;
 
 namespace TheEyeTribeTest.Files
 {

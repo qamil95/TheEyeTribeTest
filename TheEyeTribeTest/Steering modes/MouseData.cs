@@ -1,7 +1,6 @@
-﻿using SFML.System;
-using SFML.Window;
+﻿using SFML.Window;
 
-namespace TheEyeTribeTest.Files
+namespace TheEyeTribeTest.Steering_modes
 {
     class MouseData : ICursorHeight
     {

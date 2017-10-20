@@ -1,4 +1,6 @@
-﻿namespace TheEyeTribeTest.Files
+﻿using TheEyeTribeTest.Files;
+
+namespace TheEyeTribeTest.Steering_modes
 {
     class BallData : ICursorHeight
     {

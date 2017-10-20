@@ -3,6 +3,7 @@ using SFML.Window;
 using System;
 using SFML.System;
 using TheEyeTribeTest.Files;
+using TheEyeTribeTest.Steering_modes;
 
 namespace TheEyeTribeTest
 {
