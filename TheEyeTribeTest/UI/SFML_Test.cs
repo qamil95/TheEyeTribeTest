@@ -11,7 +11,7 @@ namespace TheEyeTribeTest
     [SuppressMessage("ReSharper", "InconsistentNaming")]
     internal class SFML_Test
     {
-        private readonly ICursorPosition cursorPosition;
+        private readonly ICursorHeight cursorHeight;
         private readonly Ball ball;
         private readonly Paddle leftPaddle;
         private readonly Paddle rightPaddle;
@@ -23,22 +23,30 @@ namespace TheEyeTribeTest
 
         public SFML_Test(bool eyeTribeMode)
         {
+            //create application window
             app = new RenderWindow(VideoMode.DesktopMode, "SFML Test PONG!", Styles.Fullscreen);
 
+            //create ball
+            ball = new Ball();
+
+            //create left player - eyetribe or mouse
             if (eyeTribeMode)
             {
                 var eye = new EyeData();
-                cursorPosition = eye;
+                cursorHeight = eye;
                 GazeManager.Instance.AddGazeListener(eye);
             }
             else
             {
-                cursorPosition = new MouseData();
+                cursorHeight = new MouseData();
             }
             
-            ball = new Ball();
-            leftPaddle = new Paddle();
-            rightPaddle = new Paddle();
+            //create right player - ball data
+            var ballData = new BallData(ball);
+
+            leftPaddle = new Paddle(cursorHeight);
+            rightPaddle = new Paddle(ballData);
+
             borders = new RectangleShape[4];
 
             borders[0] = new RectangleShape(new Vector2f(app.Size.X, 3))
@@ -78,8 +86,8 @@ namespace TheEyeTribeTest
                 app.Clear(windowColor);
 
                 ball.UpdateBallPosition();
-                leftPaddle.Position = new Vector2f(leftPaddle.Position.X, cursorPosition.GetCursorPosition().Y);
-                rightPaddle.Position = new Vector2f(rightPaddle.Position.X, ball.Position.Y);
+                leftPaddle.UpdatePosition();
+                rightPaddle.UpdatePosition();
                 
                 app.Draw(leftPaddle);
                 app.Draw(rightPaddle);
@@ -155,7 +163,7 @@ namespace TheEyeTribeTest
         #region Events
         void OnClose(object sender, EventArgs e)
         {
-            var eye = cursorPosition as EyeData;
+            var eye = cursorHeight as EyeData;
             if (eye != null)
             {
                 GazeManager.Instance.RemoveGazeListener(eye);

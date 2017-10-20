@@ -5,14 +5,19 @@ namespace TheEyeTribeTest.Files
 {
     class Paddle : RectangleShape
     {
-        private float speed;
+        private readonly ICursorHeight cursorHeight;
 
-        public Paddle()
+        public Paddle(ICursorHeight cursorHeight)
         {
             Size = new Vector2f(25, 100);
             FillColor = Color.White;
             Origin = Size / 2;
-            speed = 400;
+            this.cursorHeight = cursorHeight;
+        }
+
+        public void UpdatePosition()
+        {
+            Position = new Vector2f(Position.X, cursorHeight.GetCursorHeight());
         }
     }
 }

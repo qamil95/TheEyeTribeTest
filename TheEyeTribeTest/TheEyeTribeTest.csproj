@@ -67,9 +67,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Files\Ball.cs" />
+    <Compile Include="Files\BallData.cs" />
     <Compile Include="Files\CentralText.cs" />
+    <Compile Include="Files\Enums.cs" />
     <Compile Include="Files\EyeData.cs" />
-    <Compile Include="Files\ICursorPosition.cs" />
+    <Compile Include="Files\ICursorHeight.cs" />
     <Compile Include="Files\MouseData.cs" />
     <Compile Include="Files\Paddle.cs" />
     <Compile Include="UI\InvokeForm.cs">

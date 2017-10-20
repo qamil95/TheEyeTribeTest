@@ -3,11 +3,11 @@ using SFML.Window;
 
 namespace TheEyeTribeTest.Files
 {
-    class MouseData : ICursorPosition
+    class MouseData : ICursorHeight
     {
-        public Vector2f GetCursorPosition()
+        public float GetCursorHeight()
         {
-            return new Vector2f(Mouse.GetPosition().X, Mouse.GetPosition().Y);
+            return Mouse.GetPosition().Y;
         }
     }
 }
