@@ -1,4 +1,5 @@
-﻿using SFML.Graphics;
+﻿using EyeTribe.ClientSdk;
+using SFML.Graphics;
 using SFML.System;
 
 namespace TheEyeTribeTest.Files
@@ -18,6 +19,15 @@ namespace TheEyeTribeTest.Files
         public void UpdatePosition()
         {
             Position = new Vector2f(Position.X, cursorHeight.GetCursorHeight());
+        }
+
+        public void RemoveGazeListener()
+        {
+            var cursor = cursorHeight as EyeData;
+            if (cursor != null)
+            {
+                GazeManager.Instance.RemoveGazeListener(cursor);
+            }
         }
     }
 }

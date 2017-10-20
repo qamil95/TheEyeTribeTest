@@ -27,7 +27,7 @@ namespace TheEyeTribeTest.Files
             } while (Math.Abs(Math.Cos(Angle)) < 0.7);
         }
 
-        public void UpdateBallPosition()
+        public void UpdatePosition()
         {
             var factor = Speed;
             Move(Math.Cos(Angle) * factor, Math.Sin(Angle) * factor);

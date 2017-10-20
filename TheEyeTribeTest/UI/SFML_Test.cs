@@ -1,17 +1,13 @@
 ﻿using SFML.Graphics;
 using SFML.Window;
 using System;
-using System.Diagnostics.CodeAnalysis;
-using EyeTribe.ClientSdk;
 using SFML.System;
 using TheEyeTribeTest.Files;
 
 namespace TheEyeTribeTest
 {
-    [SuppressMessage("ReSharper", "InconsistentNaming")]
     internal class SFML_Test
     {
-        private readonly ICursorHeight cursorHeight;
         private readonly Ball ball;
         private readonly Paddle leftPaddle;
         private readonly Paddle rightPaddle;
@@ -21,7 +17,7 @@ namespace TheEyeTribeTest
         private int leftPoints;
         private int rightPoints;
 
-        public SFML_Test(bool eyeTribeMode)
+        public SFML_Test(ControlTypes controlTypeLeft, ControlTypes controlTypeRight)
         {
             //create application window
             app = new RenderWindow(VideoMode.DesktopMode, "SFML Test PONG!", Styles.Fullscreen);
@@ -29,24 +25,12 @@ namespace TheEyeTribeTest
             //create ball
             ball = new Ball();
 
-            //create left player - eyetribe or mouse
-            if (eyeTribeMode)
-            {
-                var eye = new EyeData();
-                cursorHeight = eye;
-                GazeManager.Instance.AddGazeListener(eye);
-            }
-            else
-            {
-                cursorHeight = new MouseData();
-            }
-            
+            //create left player
+            leftPaddle = AssignControlMode(controlTypeLeft);
+
             //create right player - ball data
-            var ballData = new BallData(ball);
-
-            leftPaddle = new Paddle(cursorHeight);
-            rightPaddle = new Paddle(ballData);
-
+            rightPaddle = AssignControlMode(controlTypeRight);
+            
             borders = new RectangleShape[4];
 
             borders[0] = new RectangleShape(new Vector2f(app.Size.X, 3))
@@ -73,6 +57,27 @@ namespace TheEyeTribeTest
             app.SetVerticalSyncEnabled(true);
         }
 
+        private Paddle AssignControlMode(ControlTypes controlTypeLeft)
+        {
+            ICursorHeight cursorHeight;
+            switch (controlTypeLeft)
+            {
+                case ControlTypes.MouseDirect:
+                    cursorHeight = new MouseData();
+                    break;
+                case ControlTypes.EyeTribeDirect:
+                    cursorHeight = new EyeData();
+                    break;
+                case ControlTypes.Ball:
+                    cursorHeight = new BallData(ball);
+                    break;
+                default:
+                    cursorHeight = new DummyData();
+                    break;
+            }
+            return new Paddle(cursorHeight);
+        }
+
         public void Run()
         {
             ResetGame();
@@ -85,7 +90,7 @@ namespace TheEyeTribeTest
                 
                 app.Clear(windowColor);
 
-                ball.UpdateBallPosition();
+                ball.UpdatePosition();
                 leftPaddle.UpdatePosition();
                 rightPaddle.UpdatePosition();
                 
@@ -163,11 +168,8 @@ namespace TheEyeTribeTest
         #region Events
         void OnClose(object sender, EventArgs e)
         {
-            var eye = cursorHeight as EyeData;
-            if (eye != null)
-            {
-                GazeManager.Instance.RemoveGazeListener(eye);
-            }
+            leftPaddle.RemoveGazeListener();
+            rightPaddle.RemoveGazeListener();
 
             var window = (RenderWindow) sender;
             window.Close();

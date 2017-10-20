@@ -69,6 +69,7 @@
     <Compile Include="Files\Ball.cs" />
     <Compile Include="Files\BallData.cs" />
     <Compile Include="Files\CentralText.cs" />
+    <Compile Include="Files\DummyData.cs" />
     <Compile Include="Files\Enums.cs" />
     <Compile Include="Files\EyeData.cs" />
     <Compile Include="Files\ICursorHeight.cs" />

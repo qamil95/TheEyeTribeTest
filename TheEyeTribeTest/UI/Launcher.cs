@@ -1,6 +1,7 @@
 ﻿using EyeTribe.ClientSdk;
 using System;
 using System.Windows.Forms;
+using TheEyeTribeTest.Files;
 
 namespace TheEyeTribeTest
 {
@@ -17,6 +18,9 @@ namespace TheEyeTribeTest
             GazeManager.Instance.AddTrackerStateListener(this);
 
             textBoxTrackerState.Text = GazeManager.Instance.Trackerstate.ToString();
+
+            comboBoxSteeringLeftPaddle.DataSource = Enum.GetValues(typeof(ControlTypes));
+            comboBoxSteeringRightPaddle.DataSource = Enum.GetValues(typeof(ControlTypes));
         }
 
         public void OnConnectionStateChanged(bool isConnected)
@@ -45,17 +49,16 @@ namespace TheEyeTribeTest
 
         private void buttonStartSfmlApp_Click(object sender, EventArgs e)
         {
-            SFML_Test test;
-            if (checkBoxEyeTribeMode.Checked)
-            {
-                test = new SFML_Test(checkBoxEyeTribeMode.Checked);
-            }
-            else
-            {
-                test = new SFML_Test(checkBoxEyeTribeMode.Checked);
-            }
-            
+            var test = new SFML_Test(
+                  SelectedControlType(comboBoxSteeringLeftPaddle)
+                , SelectedControlType(comboBoxSteeringRightPaddle)
+                );
             test.Run();
+        }
+
+        private ControlTypes SelectedControlType(ComboBox comboBox)
+        {
+            return (ControlTypes) comboBox.SelectedItem;
         }
     }
 }
