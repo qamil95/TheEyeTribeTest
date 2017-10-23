@@ -5,9 +5,9 @@ using TheEyeTribeTest.Steering_modes;
 
 namespace TheEyeTribeTest.Files
 {
-    class Paddle : RectangleShape
+    public class Paddle : RectangleShape
     {
-        private readonly ICursorHeight cursorHeight;
+        protected readonly ICursorHeight cursorHeight;
 
         public Paddle(ICursorHeight cursorHeight)
         {
@@ -17,7 +17,7 @@ namespace TheEyeTribeTest.Files
             this.cursorHeight = cursorHeight;
         }
 
-        public void UpdatePosition()
+        public virtual void UpdatePosition()
         {
             Position = new Vector2f(Position.X, cursorHeight.GetCursorHeight());
         }

@@ -60,23 +60,23 @@ namespace TheEyeTribeTest
 
         private Paddle AssignControlMode(ControlTypes controlTypeLeft)
         {
-            ICursorHeight cursorHeight;
             switch (controlTypeLeft)
             {
-                case ControlTypes.MouseDirect:
-                    cursorHeight = new MouseData();
-                    break;
-                case ControlTypes.EyeTribeDirect:
-                    cursorHeight = new EyeData();
-                    break;
+                case ControlTypes.Keyboard:
+                    return new PaddleDirectional(new KeyboardData());
+                case ControlTypes.Mouse:
+                    return new PaddleDirectional(new MouseData());
+                case ControlTypes.MousePositional:
+                    return new Paddle(new MouseData());
+                case ControlTypes.EyeTribe:
+                    return new PaddleDirectional(new EyeData());
+                case ControlTypes.EyeTribePositional:
+                    return new Paddle(new EyeData());
                 case ControlTypes.Ball:
-                    cursorHeight = new BallData(ball);
-                    break;
+                    return new Paddle(new BallData(ball));
                 default:
-                    cursorHeight = new DummyData();
-                    break;
+                    return new Paddle(new DummyData());
             }
-            return new Paddle(cursorHeight);
         }
 
         public void Run()
@@ -160,8 +160,8 @@ namespace TheEyeTribeTest
 
         private void ResetGame()
         {
-            leftPaddle.Position = new Vector2f(10 + leftPaddle.Size.X, leftPaddle.Size.Y);
-            rightPaddle.Position = new Vector2f(VideoMode.DesktopMode.Width - 10 - rightPaddle.Size.X, rightPaddle.Size.Y);
+            leftPaddle.Position = new Vector2f(10 + leftPaddle.Size.X, (float)VideoMode.DesktopMode.Height / 2);
+            rightPaddle.Position = new Vector2f(VideoMode.DesktopMode.Width - 10 - rightPaddle.Size.X, (float)VideoMode.DesktopMode.Height / 2);
             ball.Position = new Vector2f((float)VideoMode.DesktopMode.Width / 2 , (float)VideoMode.DesktopMode.Height / 2);
             ball.RandomAngle();
         }

@@ -1,6 +1,6 @@
 ﻿namespace TheEyeTribeTest.Steering_modes
 {
-    interface ICursorHeight
+    public interface ICursorHeight
     {
         float GetCursorHeight();
     }

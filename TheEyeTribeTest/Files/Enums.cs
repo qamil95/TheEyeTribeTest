@@ -12,9 +12,9 @@
     {
         Keyboard,
         Mouse,
-        MouseDirect,
+        MousePositional,
         EyeTribe,
-        EyeTribeDirect,
+        EyeTribePositional,
         EyeTribeGauss,
         Ball,
     }

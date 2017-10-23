@@ -67,12 +67,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Files\Ball.cs" />
+    <Compile Include="Files\PaddleDirectional.cs" />
     <Compile Include="Steering modes\BallData.cs" />
     <Compile Include="Files\CentralText.cs" />
     <Compile Include="Steering modes\DummyData.cs" />
     <Compile Include="Files\Enums.cs" />
     <Compile Include="Steering modes\EyeData.cs" />
     <Compile Include="Steering modes\ICursorHeight.cs" />
+    <Compile Include="Steering modes\KeyboardData.cs" />
     <Compile Include="Steering modes\MouseData.cs" />
     <Compile Include="Files\Paddle.cs" />
     <Compile Include="UI\InvokeForm.cs">
