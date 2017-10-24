@@ -20,29 +20,19 @@ namespace TheEyeTribeTest
 
         public SFML_Test(ControlTypes controlTypeLeft, ControlTypes controlTypeRight)
         {
-            //create application window
             app = new RenderWindow(VideoMode.DesktopMode, "SFML Test PONG!", Styles.Fullscreen);
 
-            //create ball
             ball = new Ball();
-
-            //create left player
             leftPaddle = AssignControlMode(controlTypeLeft);
-
-            //create right player - ball data
             rightPaddle = AssignControlMode(controlTypeRight);
             
             borders = new RectangleShape[4];
-
             borders[0] = new RectangleShape(new Vector2f(app.Size.X, 3))
                 { Position = new Vector2f(0, 0) };
-
             borders[1] = new RectangleShape(new Vector2f(3, app.Size.Y))
                 { Position = new Vector2f(app.Size.X - 3, 0) };
-
             borders[2] = new RectangleShape(new Vector2f(app.Size.X, 3))
                 { Position = new Vector2f(0, app.Size.Y - 3) };
-
             borders[3] = new RectangleShape(new Vector2f(3, app.Size.Y))
                 { Position = new Vector2f(0, 0) };
             
@@ -55,7 +45,7 @@ namespace TheEyeTribeTest
 
             app.Closed += OnClose;
             app.KeyPressed += OnKeyPressed;
-            app.SetVerticalSyncEnabled(true);
+            app.SetFramerateLimit(60);
         }
 
         private Paddle AssignControlMode(ControlTypes controlTypeLeft)
@@ -76,6 +66,8 @@ namespace TheEyeTribeTest
                     return new PaddleGaussian(new EyeData());
                 case ControlTypes.Ball:
                     return new Paddle(new BallData(ball));
+                case ControlTypes.Mouse_Gaussian_TEST:
+                    return new PaddleGaussian(new MouseData());
                 default:
                     return new Paddle(new DummyData());
             }
@@ -84,7 +76,6 @@ namespace TheEyeTribeTest
         public void Run()
         {
             ResetGame();
-
             Color windowColor = new Color(0, 0, 0);
 
             while (app.IsOpen)

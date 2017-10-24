@@ -17,5 +17,6 @@
         EyeTribe_SetPosition,
         EyeTribe_Gaussian,
         Ball,
+        Mouse_Gaussian_TEST
     }
 }
