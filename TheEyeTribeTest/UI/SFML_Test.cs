@@ -66,12 +66,14 @@ namespace TheEyeTribeTest
                     return new PaddleDirectional(new KeyboardData());
                 case ControlTypes.Mouse:
                     return new PaddleDirectional(new MouseData());
-                case ControlTypes.MousePositional:
+                case ControlTypes.Mouse_SetPosition:
                     return new Paddle(new MouseData());
                 case ControlTypes.EyeTribe:
                     return new PaddleDirectional(new EyeData());
-                case ControlTypes.EyeTribePositional:
+                case ControlTypes.EyeTribe_SetPosition:
                     return new Paddle(new EyeData());
+                case ControlTypes.EyeTribe_Gaussian:
+                    return new PaddleGaussian(new EyeData());
                 case ControlTypes.Ball:
                     return new Paddle(new BallData(ball));
                 default:

@@ -12,10 +12,10 @@
     {
         Keyboard,
         Mouse,
-        MousePositional,
+        Mouse_SetPosition,
         EyeTribe,
-        EyeTribePositional,
-        EyeTribeGauss,
+        EyeTribe_SetPosition,
+        EyeTribe_Gaussian,
         Ball,
     }
 }
