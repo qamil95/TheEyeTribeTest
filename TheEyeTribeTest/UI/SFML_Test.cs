@@ -76,6 +76,8 @@ namespace TheEyeTribeTest
         public void Run()
         {
             ResetGame();
+            leftPaddle.Position = new Vector2f(10 + leftPaddle.Size.X, (float)VideoMode.DesktopMode.Height / 2);
+            rightPaddle.Position = new Vector2f(VideoMode.DesktopMode.Width - 10 - rightPaddle.Size.X, (float)VideoMode.DesktopMode.Height / 2);
             Color windowColor = new Color(0, 0, 0);
 
             while (app.IsOpen)
@@ -153,8 +155,6 @@ namespace TheEyeTribeTest
 
         private void ResetGame()
         {
-            leftPaddle.Position = new Vector2f(10 + leftPaddle.Size.X, (float)VideoMode.DesktopMode.Height / 2);
-            rightPaddle.Position = new Vector2f(VideoMode.DesktopMode.Width - 10 - rightPaddle.Size.X, (float)VideoMode.DesktopMode.Height / 2);
             ball.Position = new Vector2f((float)VideoMode.DesktopMode.Width / 2 , (float)VideoMode.DesktopMode.Height / 2);
             ball.RandomAngle();
         }
