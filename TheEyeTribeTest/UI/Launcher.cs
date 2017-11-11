@@ -13,7 +13,7 @@ namespace TheEyeTribeTest
         public Launcher()
         {
             InitializeComponent();
-            textBoxActivated.Text =  GazeManager.Instance.Activate(GazeManagerCore.ApiVersion.VERSION_1_0).ToString();
+            textBoxActivated.Text = GazeManager.Instance.Activate(GazeManagerCore.ApiVersion.VERSION_1_0).ToString();
             GazeManager.Instance.AddConnectionStateListener(this);
             GazeManager.Instance.AddTrackerStateListener(this);
 
