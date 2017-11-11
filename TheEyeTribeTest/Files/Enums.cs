@@ -10,13 +10,13 @@
 
     enum ControlTypes
     {
+        Ball,
         Keyboard,
         Mouse,
+        Mouse_Gaussian,
         Mouse_SetPosition,
         EyeTribe,
-        EyeTribe_SetPosition,
         EyeTribe_Gaussian,
-        Ball,
-        Mouse_Gaussian_TEST
+        EyeTribe_SetPosition,
     }
 }

@@ -2,7 +2,7 @@
 
 namespace TheEyeTribeTest.Steering_modes
 {
-    class BallData : ICursorHeight
+    class BallData : ICursorHeight, ICursorWidth
     {
         private readonly Ball ball;
 
@@ -12,6 +12,11 @@ namespace TheEyeTribeTest.Steering_modes
         }
 
         public float GetCursorHeight()
+        {
+            return ball.Position.Y;
+        }
+
+        public float GetCursorWidth()
         {
             return ball.Position.Y;
         }

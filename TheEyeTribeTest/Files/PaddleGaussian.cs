@@ -6,7 +6,7 @@ namespace TheEyeTribeTest.Files
 {
     class PaddleGaussian : Paddle
     {
-        private const float Speed = 7000;
+        private const float Speed = 6000;
 
         public PaddleGaussian(ICursorHeight cursorHeight) : base(cursorHeight)
         {
@@ -17,8 +17,9 @@ namespace TheEyeTribeTest.Files
             var gazeHeight = cursorHeight.GetCursorHeight();
             var paddleHeight = Position.Y;
             var distance = paddleHeight - gazeHeight;
+            if (Math.Abs(distance) < 5) return;
 
-            var toMove = (float)(Speed*GaussianFunction(Math.Abs(distance)));
+            var toMove = (float)(Speed * GaussianFunction(Math.Abs(distance)));
 
             if (distance > 0) //move up
             {
@@ -33,7 +34,7 @@ namespace TheEyeTribeTest.Files
         private double GaussianFunction(double x)
         {
             double sigma = 250;
-            double micro = 400;
+            double micro = 350;
 
             var a = Math.Pow((x - micro) / sigma, 2);
             var b = -0.5 * a;

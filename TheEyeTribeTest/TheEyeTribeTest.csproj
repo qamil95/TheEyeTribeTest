@@ -75,6 +75,7 @@
     <Compile Include="Files\Enums.cs" />
     <Compile Include="Steering modes\EyeData.cs" />
     <Compile Include="Steering modes\ICursorHeight.cs" />
+    <Compile Include="Steering modes\ICursorWidth.cs" />
     <Compile Include="Steering modes\KeyboardData.cs" />
     <Compile Include="Steering modes\MouseData.cs" />
     <Compile Include="Files\Paddle.cs" />
