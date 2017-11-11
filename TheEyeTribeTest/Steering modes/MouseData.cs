@@ -11,7 +11,7 @@ namespace TheEyeTribeTest.Steering_modes
 
         public float GetCursorWidth()
         {
-            return Mouse.GetPosition().Y;
+            return Mouse.GetPosition().X;
         }
     }
 }
