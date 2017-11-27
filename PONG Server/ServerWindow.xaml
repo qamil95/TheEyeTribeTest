@@ -8,12 +8,24 @@
         Title="TheEyeTribe PONG Server" Height="350" Width="525">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-            <TextBlock Grid.Row="0" HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="Connection status:" VerticalAlignment="Top" Width="497" FontSize="20"/>
-            <TextBlock Name="master" Grid.Row="1" HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="Master client: null" VerticalAlignment="Top" Width="497" FontSize="20"/>
-            <TextBlock Name="slave" Grid.Row="2" HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="Slave client: null" VerticalAlignment="Top" Width="497" FontSize="20"/>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <TextBlock Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="Connection status:" VerticalAlignment="Top" FontSize="20"/>
+        <TextBlock Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="Master client:" VerticalAlignment="Top" FontSize="20"/>
+        <TextBlock Grid.Row="1" Grid.Column="1" Name="master" HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="null" VerticalAlignment="Top" FontSize="20"/>
+        <TextBlock Grid.Row="2" Grid.Column="0" HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="Slave client:" VerticalAlignment="Top" FontSize="20"/>
+        <TextBlock Grid.Row="2" Grid.Column="1" Name="slave" HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="null" VerticalAlignment="Top" FontSize="20"/>
+        <Button Grid.Row="3" Grid.Column="0" Content="Send msg to master" Click="ButtonSendMaster_OnClick"/>
+        <Button Grid.Row="3" Grid.Column="1" Content="Send msg to slave" Click="ButtonSendSlave_OnClick"/>
+        <Button Grid.Row="4" Grid.Column="0" Content="Read msg from master" Click="ButtonReceiveMaster_OnClick"/>
+        <Button Grid.Row="4" Grid.Column="1" Content="Read msg from slave" Click="ButtonReceiveSlave_OnClick"/>
     </Grid>
 </Window>
