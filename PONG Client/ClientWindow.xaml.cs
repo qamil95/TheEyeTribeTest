@@ -5,13 +5,13 @@ using System.Windows;
 namespace PONG_Client
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for ClientWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class ClientWindow : Window
     {
         private BinaryReader reader;
         private BinaryWriter writer;
-        public MainWindow()
+        public ClientWindow()
         {
             InitializeComponent();
             var client = new TcpClient("localhost", 8888);
