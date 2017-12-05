@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PONG Server", "PONG Server\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PONG Client", "PONG Client\PONG Client.csproj", "{C3F5B3C4-3ED3-45A7-AC64-B61A7D7ED8EA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PONG Common", "PONG Common\PONG Common.csproj", "{C66E3588-4F9E-48D5-89A7-4C4B1E56B9DD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{C3F5B3C4-3ED3-45A7-AC64-B61A7D7ED8EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C3F5B3C4-3ED3-45A7-AC64-B61A7D7ED8EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C3F5B3C4-3ED3-45A7-AC64-B61A7D7ED8EA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C66E3588-4F9E-48D5-89A7-4C4B1E56B9DD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C66E3588-4F9E-48D5-89A7-4C4B1E56B9DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C66E3588-4F9E-48D5-89A7-4C4B1E56B9DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C66E3588-4F9E-48D5-89A7-4C4B1E56B9DD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

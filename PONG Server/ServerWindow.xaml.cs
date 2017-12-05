@@ -1,8 +1,9 @@
 ﻿using System;
-using System.IO;
 using System.Net;
 using System.Net.Sockets;
+using System.Threading.Tasks;
 using System.Windows;
+using PONG_Common;
 
 namespace PONG_Server
 {
@@ -13,66 +14,62 @@ namespace PONG_Server
     {
         private Connection masterConnection;
         private Connection slaveConnection;
+
         public ServerWindow()
         {
             InitializeComponent();
+            Task.Run(()=>HandleConnection());
+        }
 
+        private async void HandleConnection()
+        {
             var listener = new TcpListener(IPAddress.Any, 8888);
             listener.Start();
-            HandleConnection(listener);
-        }
 
-        private async void HandleConnection(TcpListener listener)
-        {
+            log("Waiting for first client");
             var client = await listener.AcceptTcpClientAsync();
             masterConnection = new Connection(client.GetStream());
-            master.Text = $"connected {DateTime.Now}";
+            Dispatcher.Invoke(()=>master.Text = $"connected {DateTime.Now}");
+            masterConnection.SendMessage("Connected as MASTER");
+
+            log("Waiting for second client");
             client = await listener.AcceptTcpClientAsync();
             slaveConnection = new Connection(client.GetStream());
-            slave.Text = $"connected {DateTime.Now}";
+            Dispatcher.Invoke(()=>slave.Text = $"connected {DateTime.Now}");
+            slaveConnection.SendMessage("Connected as SLAVE");
+
             listener.Stop();
+
+            InitializeGame();
         }
 
-        private void ButtonSendMaster_OnClick(object sender, RoutedEventArgs e)
+        private void InitializeGame()
         {
-            masterConnection.SendMessage($"Msg to master: {DateTime.Now}");
+            log("Clients connected - waiting for initial message");
+            //read init msg from both clients
+            masterConnection.ReceiveMessage();
+            slaveConnection.ReceiveMessage();
+
+            //start main loop of application
+            while (true)
+            {
+                masterConnection.SendMessage("Data for master");
+                slaveConnection.SendMessage("Data for slave");
+                var masterResponse = masterConnection.ReceiveMessage();
+                var slaveResponse = slaveConnection.ReceiveMessage();
+
+                //parse response, evaluate
+                log($"MASTER {masterResponse}, SLAVE {slaveResponse}");
+            }
         }
 
-        private void ButtonSendSlave_OnClick(object sender, RoutedEventArgs e)
+        private void log(string text)
         {
-            slaveConnection.SendMessage($"Msg to slave: {DateTime.Now}");
-        }
-
-        private void ButtonReceiveMaster_OnClick(object sender, RoutedEventArgs e)
-        {
-            MessageBox.Show(masterConnection.ReceiveMessage());
-        }
-
-        private void ButtonReceiveSlave_OnClick(object sender, RoutedEventArgs e)
-        {
-            MessageBox.Show(slaveConnection.ReceiveMessage());
-        }
-    }
-
-    public class Connection
-    {
-        private readonly BinaryReader reader;
-        private readonly BinaryWriter writer;
-
-        public Connection(NetworkStream stream)
-        {
-            reader = new BinaryReader(stream);
-            writer = new BinaryWriter(stream);
-        }
-
-        public void SendMessage(string message)
-        {
-            writer.Write(message);
-        }
-
-        public string ReceiveMessage()
-        {
-            return reader.ReadString();
+            Dispatcher.Invoke(() =>
+            {
+                logTextBlock.Text += text + Environment.NewLine;
+                scrollViewer.ScrollToBottom();
+            });
         }
     }
 }

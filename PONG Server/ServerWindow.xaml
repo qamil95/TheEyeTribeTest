@@ -3,7 +3,6 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:PONG_Server"
         mc:Ignorable="d"
         Title="TheEyeTribe PONG Server" Height="350" Width="525">
     <Grid>
@@ -11,21 +10,19 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition />
-            <ColumnDefinition />
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="3*"/>
         </Grid.ColumnDefinitions>
         <TextBlock Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="Connection status:" VerticalAlignment="Top" FontSize="20"/>
         <TextBlock Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="Master client:" VerticalAlignment="Top" FontSize="20"/>
         <TextBlock Grid.Row="1" Grid.Column="1" Name="master" HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="null" VerticalAlignment="Top" FontSize="20"/>
         <TextBlock Grid.Row="2" Grid.Column="0" HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="Slave client:" VerticalAlignment="Top" FontSize="20"/>
         <TextBlock Grid.Row="2" Grid.Column="1" Name="slave" HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="null" VerticalAlignment="Top" FontSize="20"/>
-        <Button Grid.Row="3" Grid.Column="0" Content="Send msg to master" Click="ButtonSendMaster_OnClick"/>
-        <Button Grid.Row="3" Grid.Column="1" Content="Send msg to slave" Click="ButtonSendSlave_OnClick"/>
-        <Button Grid.Row="4" Grid.Column="0" Content="Read msg from master" Click="ButtonReceiveMaster_OnClick"/>
-        <Button Grid.Row="4" Grid.Column="1" Content="Read msg from slave" Click="ButtonReceiveSlave_OnClick"/>
+        <ScrollViewer Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Name="scrollViewer">
+            <TextBlock Name="logTextBlock"/>
+        </ScrollViewer>
     </Grid>
 </Window>
