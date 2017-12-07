@@ -7,10 +7,62 @@
         Title="The Eye Tribe PONG Client" Height="350" Width="525">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition />
-            <RowDefinition />
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <TextBlock Grid.Row="0" Name="lastMsg">Last msg</TextBlock>
-        <Button Grid.Row="1" Click="ButtonBase_OnClick">Send msg</Button>
+        
+        <Label Grid.Row="0" HorizontalAlignment="Center">The Eye Tribe settings</Label>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <TextBlock Grid.Row="0" Grid.Column="0" TextAlignment="Right">The Eye Tribe IP:</TextBlock>
+            <TextBox Grid.Row="0" Grid.Column="1" TextAlignment="Left" Name="tetIP">localhost</TextBox>
+            <TextBlock Grid.Row="1" Grid.Column="0" TextAlignment="Right">The Eye Tribe PORT:</TextBlock>
+            <TextBox Grid.Row="1" Grid.Column="1" TextAlignment="Left" Name="tetPort">6555</TextBox>
+            <TextBlock Grid.Row="2" Grid.Column="0" TextAlignment="Right">TET Server Activated:</TextBlock>
+            <TextBox Grid.Row="2" Grid.Column="1" TextAlignment="Left" Name="serverActivatedStateInfo" IsReadOnly="True">no state</TextBox>
+            <TextBlock Grid.Row="3" Grid.Column="0" TextAlignment="Right">TET Tracker State:</TextBlock>
+            <TextBox Grid.Row="3" Grid.Column="1" TextAlignment="Left" Name="trackerStateInfo" IsReadOnly="True">no state</TextBox>
+            <Button Grid.Row="0" Grid.RowSpan="4" Grid.Column="2">Connect The Eye Tribe Tracker</Button>
+        </Grid>
+        <Separator Grid.Row="2" />
+        <Label Grid.Row="3" HorizontalAlignment="Center">PONG Server settings</Label>
+        <Grid Grid.Row="4">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <TextBlock Grid.Row="0" Grid.Column="0" TextAlignment="Right">PONG Server IP:</TextBlock>
+            <TextBox Grid.Row="0" Grid.Column="1" TextAlignment="Left" Name="pongServerIP">localhost</TextBox>
+            <TextBlock Grid.Row="1" Grid.Column="0" TextAlignment="Right">PONG Server PORT:</TextBlock>
+            <TextBox Grid.Row="1" Grid.Column="1" TextAlignment="Left" Name="pongServerPort">8888</TextBox>
+            <TextBlock Grid.Row="2" Grid.Column="0" TextAlignment="Right">Steering mode:</TextBlock>
+            <ComboBox Grid.Row="2" Grid.Column="1" Name="pongSteeringMode" SelectedIndex="0"></ComboBox>
+            <Button Grid.Row="0" Grid.RowSpan="3" Grid.Column="2">Connect PONG Server</Button>
+        </Grid>
+        <Separator Grid.Row="5"/>
+        <Label Grid.Row="6" HorizontalAlignment="Center">Start game</Label>
+        <Button Grid.Row="7">START</Button>
     </Grid>
 </Window>

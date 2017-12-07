@@ -47,8 +47,8 @@ namespace PONG_Server
         {
             log("Clients connected - waiting for initial message");
             //read init msg from both clients
-            masterConnection.ReceiveMessage();
-            slaveConnection.ReceiveMessage();
+            log("init master: " + masterConnection.ReceiveMessage());
+            log("init slave: " + slaveConnection.ReceiveMessage());
 
             //start main loop of application
             while (true)

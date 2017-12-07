@@ -1,6 +1,7 @@
-﻿using System.Net;
+﻿using System;
 using System.Net.Sockets;
 using System.Windows;
+using EyeTribe.ClientSdk;
 using PONG_Common;
 
 namespace PONG_Client
@@ -8,30 +9,39 @@ namespace PONG_Client
     /// <summary>
     /// Interaction logic for ClientWindow.xaml
     /// </summary>
-    public partial class ClientWindow : Window
+    public partial class ClientWindow : 
+        Window,
+        IConnectionStateListener,
+        ITrackerStateListener
     {
-        private bool connected;
         private Connection connection;
         public ClientWindow()
         {
             InitializeComponent();
-            HandleConnection();
+            pongSteeringMode.ItemsSource = Enum.GetValues(typeof(ControlTypes));
         }
 
-        private void HandleConnection()
+        private void connectToTetServer()
+        {
+            
+        }
+
+        private void connectToPongServer()
         {
             var client = new TcpClient("localhost", 8888);
             connection = new Connection(client.GetStream());
 
-            connected = true;
             var msg = connection.ReceiveMessage();
-            lastMsg.Text += $"{msg}";
         }
 
-        private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
+        public void OnConnectionStateChanged(bool isConnected)
         {
-            connection.SendMessage("ELOMELO");
-            lastMsg.Text += $"{connection.ReceiveMessage()}";
+            serverActivatedStateInfo.Text = isConnected.ToString();
+        }
+
+        public void OnTrackerStateChanged(GazeManagerCore.TrackerState trackerState)
+        {
+            trackerStateInfo.Text = trackerState.ToString();
         }
     }
 }
