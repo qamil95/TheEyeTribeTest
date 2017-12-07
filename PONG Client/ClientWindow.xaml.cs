@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Net.Sockets;
-using System.Runtime.InteropServices;
 using System.Windows;
 using EyeTribe.ClientSdk;
 using PONG_Common;
@@ -35,7 +34,28 @@ namespace PONG_Client
 
         private void ConnectTracker_OnClick(object sender, RoutedEventArgs e)
         {
-            var activated = GazeManager.Instance.Activate(GazeManagerCore.ApiVersion.VERSION_1_0).ToString();
+            if (GazeManager.Instance.IsActivated)
+            {
+                MessageBox.Show("Already connected");
+                return;
+            }
+            var hostName = tetIP.Text;
+            int port;
+            if (!int.TryParse(tetPort.Text, out port))
+            {
+                MessageBox.Show(
+                    "Can't parse port to integer - enter valid number",
+                    "Error",
+                    MessageBoxButton.OK, 
+                    MessageBoxImage.Error
+                    );
+                return;
+            }
+
+            var activated = GazeManager.Instance.Activate(
+                GazeManagerCore.ApiVersion.VERSION_1_0,
+                hostName,
+                port).ToString();
             var trackerState = GazeManager.Instance.Trackerstate.ToString();
             GazeManager.Instance.AddConnectionStateListener(this);
             GazeManager.Instance.AddTrackerStateListener(this);
@@ -47,12 +67,26 @@ namespace PONG_Client
             });
         }
 
+        private void DisconnectTracker_OnClick(object sender, RoutedEventArgs e)
+        {
+            if (GazeManager.Instance.IsActivated)
+            {
+                GazeManager.Instance.Deactivate();
+            }
+            else
+            {
+                MessageBox.Show("Already disconnected");
+            }
+        }
+
         private void ConnectPongServer_OnClick(object sender, RoutedEventArgs e)
         {
             var client = new TcpClient("localhost", 8888);
             connection = new Connection(client.GetStream());
 
             var msg = connection.ReceiveMessage();
+
+            Dispatcher.Invoke(() => pongConnectionStatus.Text = msg);
         }
 
         private void StartGame_OnClick(object sender, RoutedEventArgs e)

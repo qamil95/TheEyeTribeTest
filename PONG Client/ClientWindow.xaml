@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="The Eye Tribe PONG Client" Height="350" Width="525">
+        Title="The Eye Tribe PONG Client" Height="400" Width="500">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -13,6 +13,7 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="20"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
@@ -38,7 +39,8 @@
             <TextBox Grid.Row="2" Grid.Column="1" TextAlignment="Left" Name="serverActivatedStateInfo" IsReadOnly="True">no state</TextBox>
             <TextBlock Grid.Row="3" Grid.Column="0" TextAlignment="Right">TET Tracker State:</TextBlock>
             <TextBox Grid.Row="3" Grid.Column="1" TextAlignment="Left" Name="trackerStateInfo" IsReadOnly="True">no state</TextBox>
-            <Button Grid.Row="0" Grid.RowSpan="4" Grid.Column="2" Click="ConnectTracker_OnClick">Connect The Eye Tribe Tracker</Button>
+            <Button Grid.Row="0" Grid.RowSpan="3" Grid.Column="2" Click="ConnectTracker_OnClick">Connect The Eye Tribe Tracker</Button>
+            <Button Grid.Row="3" Grid.Column="2" Click="DisconnectTracker_OnClick">Disconnect TET Tracker</Button>
         </Grid>
         <Separator Grid.Row="2" />
         <Label Grid.Row="3" HorizontalAlignment="Center">PONG Server settings</Label>
@@ -59,10 +61,12 @@
             <TextBox Grid.Row="1" Grid.Column="1" TextAlignment="Left" Name="pongServerPort">8888</TextBox>
             <TextBlock Grid.Row="2" Grid.Column="0" TextAlignment="Right">Steering mode:</TextBlock>
             <ComboBox Grid.Row="2" Grid.Column="1" Name="pongSteeringMode" SelectedIndex="0"></ComboBox>
-            <Button Grid.Row="0" Grid.RowSpan="3" Grid.Column="2" Click="ConnectPongServer_OnClick">Connect PONG Server</Button>
+            <Button Grid.Row="0" Grid.RowSpan="2" Grid.Column="2" Click="ConnectPongServer_OnClick">Connect PONG Server</Button>
+            <TextBlock Grid.Row="2" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" Name="pongConnectionStatus">Waiting for connection</TextBlock>
         </Grid>
         <Separator Grid.Row="5"/>
         <Label Grid.Row="6" HorizontalAlignment="Center">Start game</Label>
-        <Button Grid.Row="7" Click="StartGame_OnClick">START</Button>
+        <CheckBox Grid.Row="7" HorizontalAlignment="Center" VerticalAlignment="Center" Name="renderGameWindow">Render game window?</CheckBox>
+        <Button Grid.Row="8" Click="StartGame_OnClick">START</Button>
     </Grid>
 </Window>
