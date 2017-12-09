@@ -19,7 +19,7 @@ namespace PONG_Client
         public ClientWindow()
         {
             InitializeComponent();
-            pongSteeringMode.ItemsSource = Enum.GetValues(typeof(ControlTypes));
+            pongSteeringMode.ItemsSource = Enum.GetValues(typeof(ControlType));
             pongPaddlePosition.ItemsSource = Enum.GetValues(typeof(PaddlePosition));
         }
 
@@ -86,13 +86,13 @@ namespace PONG_Client
             connection = new Connection(client.GetStream());
 
             var msg = connection.ReceiveMessage();
-
             Dispatcher.Invoke(() => pongConnectionStatus.Text = msg);
         }
 
         private void StartGame_OnClick(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
+            var game = new Game((ControlType)pongSteeringMode.SelectionBoxItem, fullScreenGameWindow.IsChecked, connection);
+            game.Run((PaddlePosition)pongPaddlePosition.SelectionBoxItem);
         }
     }
 }

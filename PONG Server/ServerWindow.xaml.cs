@@ -3,7 +3,9 @@ using System.Net;
 using System.Net.Sockets;
 using System.Threading.Tasks;
 using System.Windows;
+using Newtonsoft.Json;
 using PONG_Common;
+using SFML.System;
 
 namespace PONG_Server
 {
@@ -14,6 +16,13 @@ namespace PONG_Server
     {
         private Connection masterConnection;
         private Connection slaveConnection;
+        private InitialState initMaster;
+        private InitialState initSlave;
+        private int leftPoints;
+        private int rightPoints;
+        private Vector2f masterPaddle;
+        private Vector2f slavePaddle;
+        private Vector2f ballPosition;
 
         public ServerWindow()
         {
@@ -47,20 +56,47 @@ namespace PONG_Server
         {
             log("Clients connected - waiting for initial message");
             //read init msg from both clients
-            log("init master: " + masterConnection.ReceiveMessage());
-            log("init slave: " + slaveConnection.ReceiveMessage());
+            initMaster = JsonConvert.DeserializeObject<InitialState>(masterConnection.ReceiveMessage());
+            initSlave = JsonConvert.DeserializeObject<InitialState>(slaveConnection.ReceiveMessage());
+            
+            ResetGame();
 
             //start main loop of application
             while (true)
             {
-                masterConnection.SendMessage("Data for master");
-                slaveConnection.SendMessage("Data for slave");
-                var masterResponse = masterConnection.ReceiveMessage();
-                var slaveResponse = slaveConnection.ReceiveMessage();
+                var masterState = new GameState
+                {
+                    BallPosition = ballPosition,
+                    RightPoints = rightPoints,
+                    LeftPoints = leftPoints,
+                    OpponentHeight = slavePaddle.Y,
+                };
+                var slaveState = new GameState
+                {
+                    BallPosition = ballPosition,
+                    RightPoints = rightPoints,
+                    LeftPoints = leftPoints,
+                    OpponentHeight = masterPaddle.Y,
+                };
 
-                //parse response, evaluate
-                log($"MASTER {masterResponse}, SLAVE {slaveResponse}");
+                masterConnection.SendMessage(JsonConvert.SerializeObject(masterState));
+                slaveConnection.SendMessage(JsonConvert.SerializeObject(slaveState));
+
+                var masterResponse = JsonConvert.DeserializeObject<ClientState>(masterConnection.ReceiveMessage());
+
+                var slaveResponse = JsonConvert.DeserializeObject<ClientState>(slaveConnection.ReceiveMessage());
+
             }
+        }
+
+        private void ResetGame()
+        {
+            log("Game reset called");
+            leftPoints = 0;
+            rightPoints = 0;
+            masterPaddle = initMaster.StartPaddlePosition;
+            slavePaddle = initSlave.StartPaddlePosition;
+            ballPosition = initMaster.StartBallPosition;
         }
 
         private void log(string text)

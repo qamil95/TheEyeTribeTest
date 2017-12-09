@@ -14,7 +14,7 @@
         Right,
     }
 
-    public enum ControlTypes
+    public enum ControlType
     {
         Ball,
         Keyboard,
@@ -24,5 +24,6 @@
         EyeTribe,
         EyeTribe_Gaussian,
         EyeTribe_SetPosition,
+        Network,
     }
 }

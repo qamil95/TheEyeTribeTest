@@ -163,7 +163,6 @@ namespace TheEyeTribeTest
             ball.RandomAngle();
         }
 
-        #region Events
         void OnClose(object sender, EventArgs e)
         {
             leftPaddle.RemoveGazeListener();
@@ -185,6 +184,5 @@ namespace TheEyeTribeTest
                     break;
             }
         }
-        #endregion
     }
 }
