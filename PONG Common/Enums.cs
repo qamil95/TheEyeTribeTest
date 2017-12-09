@@ -8,6 +8,12 @@
         Left,
     }
 
+    public enum PaddlePosition
+    {
+        Left,
+        Right,
+    }
+
     public enum ControlTypes
     {
         Ball,

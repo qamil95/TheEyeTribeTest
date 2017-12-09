@@ -54,6 +54,7 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
             <TextBlock Grid.Row="0" Grid.Column="0" TextAlignment="Right">PONG Server IP:</TextBlock>
             <TextBox Grid.Row="0" Grid.Column="1" TextAlignment="Left" Name="pongServerIP">localhost</TextBox>
@@ -61,8 +62,10 @@
             <TextBox Grid.Row="1" Grid.Column="1" TextAlignment="Left" Name="pongServerPort">8888</TextBox>
             <TextBlock Grid.Row="2" Grid.Column="0" TextAlignment="Right">Steering mode:</TextBlock>
             <ComboBox Grid.Row="2" Grid.Column="1" Name="pongSteeringMode" SelectedIndex="0"></ComboBox>
-            <Button Grid.Row="0" Grid.RowSpan="2" Grid.Column="2" Click="ConnectPongServer_OnClick">Connect PONG Server</Button>
-            <TextBlock Grid.Row="2" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" Name="pongConnectionStatus">Waiting for connection</TextBlock>
+            <TextBlock Grid.Row="3" Grid.Column="0" TextAlignment="Right">Paddle position</TextBlock>
+            <ComboBox Grid.Row="3" Grid.Column="1" Name="pongPaddlePosition" SelectedIndex="0"></ComboBox>
+            <Button Grid.Row="0" Grid.RowSpan="3" Grid.Column="2" Click="ConnectPongServer_OnClick">Connect PONG Server</Button>
+            <TextBlock Grid.Row="3" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" Name="pongConnectionStatus">Waiting for connection</TextBlock>
         </Grid>
         <Separator Grid.Row="5"/>
         <Label Grid.Row="6" HorizontalAlignment="Center">Start game</Label>

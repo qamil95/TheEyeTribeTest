@@ -20,6 +20,7 @@ namespace PONG_Client
         {
             InitializeComponent();
             pongSteeringMode.ItemsSource = Enum.GetValues(typeof(ControlTypes));
+            pongPaddlePosition.ItemsSource = Enum.GetValues(typeof(PaddlePosition));
         }
 
         public void OnConnectionStateChanged(bool isConnected)
