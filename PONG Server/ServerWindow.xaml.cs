@@ -23,11 +23,12 @@ namespace PONG_Server
         private Vector2f masterPaddle;
         private Vector2f slavePaddle;
         private Vector2f ballPosition;
+        private double ballAngle;
 
         public ServerWindow()
         {
             InitializeComponent();
-            Task.Run(()=>HandleConnection());
+            Task.Run(() => HandleConnection());
         }
 
         private async void HandleConnection()
@@ -38,13 +39,13 @@ namespace PONG_Server
             log("Waiting for first client");
             var client = await listener.AcceptTcpClientAsync();
             masterConnection = new Connection(client.GetStream());
-            Dispatcher.Invoke(()=>master.Text = $"connected {DateTime.Now}");
+            Dispatcher.Invoke(() => master.Text = $"connected {DateTime.Now}");
             masterConnection.SendMessage("Connected as MASTER");
 
             log("Waiting for second client");
             client = await listener.AcceptTcpClientAsync();
             slaveConnection = new Connection(client.GetStream());
-            Dispatcher.Invoke(()=>slave.Text = $"connected {DateTime.Now}");
+            Dispatcher.Invoke(() => slave.Text = $"connected {DateTime.Now}");
             slaveConnection.SendMessage("Connected as SLAVE");
 
             listener.Stop();
@@ -58,7 +59,7 @@ namespace PONG_Server
             //read init msg from both clients
             initMaster = JsonConvert.DeserializeObject<InitialState>(masterConnection.ReceiveMessage());
             initSlave = JsonConvert.DeserializeObject<InitialState>(slaveConnection.ReceiveMessage());
-            
+
             ResetGame();
 
             //start main loop of application
@@ -70,6 +71,7 @@ namespace PONG_Server
                     RightPoints = rightPoints,
                     LeftPoints = leftPoints,
                     OpponentHeight = slavePaddle.Y,
+                    BallAngle = ballAngle,
                 };
                 var slaveState = new GameState
                 {
@@ -77,15 +79,30 @@ namespace PONG_Server
                     RightPoints = rightPoints,
                     LeftPoints = leftPoints,
                     OpponentHeight = masterPaddle.Y,
+                    BallAngle = ballAngle,
                 };
 
                 masterConnection.SendMessage(JsonConvert.SerializeObject(masterState));
                 slaveConnection.SendMessage(JsonConvert.SerializeObject(slaveState));
 
                 var masterResponse = JsonConvert.DeserializeObject<ClientState>(masterConnection.ReceiveMessage());
-
                 var slaveResponse = JsonConvert.DeserializeObject<ClientState>(slaveConnection.ReceiveMessage());
 
+                if (masterResponse.rightCollision)
+                {
+                    leftPoints++;
+                }
+                if (masterResponse.leftCollision)
+                {
+                    rightPoints++;
+                }
+                masterPaddle.Y = masterResponse.cursorHeight;
+                slavePaddle.Y = slaveResponse.cursorHeight;
+                ballPosition = masterResponse.newBallPosition;
+                if (masterResponse.newBallAngle != null)
+                {
+                    ballAngle = masterResponse.newBallAngle.Value;
+                }
             }
         }
 
@@ -97,6 +114,7 @@ namespace PONG_Server
             masterPaddle = initMaster.StartPaddlePosition;
             slavePaddle = initSlave.StartPaddlePosition;
             ballPosition = initMaster.StartBallPosition;
+            ballAngle = initMaster.StartBallAngle;
         }
 
         private void log(string text)

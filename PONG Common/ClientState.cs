@@ -1,4 +1,6 @@
-﻿namespace PONG_Common
+﻿using SFML.System;
+
+namespace PONG_Common
 {
     public class ClientState
     {
@@ -7,5 +9,6 @@
         public bool ballCollision;
         public float cursorHeight;
         public double? newBallAngle;
+        public Vector2f newBallPosition;
     }
 }

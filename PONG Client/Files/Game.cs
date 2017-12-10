@@ -101,6 +101,8 @@ namespace PONG_Client
                 var gameState = JsonConvert.DeserializeObject<GameState>(connection.ReceiveMessage());
                 opponentHeight.SetCursorHeight(gameState.OpponentHeight);
                 ball.SetPosition(gameState.BallPosition);
+                ball.Angle = gameState.BallAngle;
+                ball.UpdatePosition();
 
                 playerPaddle.UpdatePosition();
                 opponentPaddle.UpdatePosition();
@@ -122,6 +124,7 @@ namespace PONG_Client
                 var clientState = new ClientState();
                 CheckCollisions(clientState);
                 clientState.cursorHeight = playerPaddle.Position.Y;
+                clientState.newBallPosition = ball.Position;
                 connection.SendMessage(JsonConvert.SerializeObject(clientState));
             }
         }
