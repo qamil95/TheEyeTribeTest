@@ -83,7 +83,9 @@ namespace PONG_Client
 
         private void ConnectPongServer_OnClick(object sender, RoutedEventArgs e)
         {
-            client = new TcpClient("localhost", 8888);
+            var ip = pongServerIP.Text;
+            var port = int.Parse(pongServerPort.Text);
+            client = new TcpClient(ip, port);
             connection = new Connection(client.GetStream());
 
             var msg = connection.ReceiveMessage();

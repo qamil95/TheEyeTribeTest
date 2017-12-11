@@ -18,7 +18,7 @@ namespace PONG_Client
         private readonly RenderWindow app;
         private readonly CentralText result;
         private readonly Connection connection;
-        private bool pause;
+        private bool pause = true;
         private bool resetRequested;
 
         public Game(ControlType controlType, bool? fullScreen, Connection connection)
@@ -57,7 +57,7 @@ namespace PONG_Client
 
             app.Closed += OnClose;
             app.KeyPressed += OnKeyPressed;
-            app.SetVerticalSyncEnabled(true);
+            app.SetFramerateLimit(60);
 
             this.connection = connection;
         }
