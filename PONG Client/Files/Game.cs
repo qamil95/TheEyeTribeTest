@@ -18,6 +18,8 @@ namespace PONG_Client
         private readonly RenderWindow app;
         private readonly CentralText result;
         private readonly Connection connection;
+        private bool pause;
+        private bool resetRequested;
 
         public Game(ControlType controlType, bool? fullScreen, Connection connection)
         {
@@ -55,7 +57,7 @@ namespace PONG_Client
 
             app.Closed += OnClose;
             app.KeyPressed += OnKeyPressed;
-            app.SetFramerateLimit(60);
+            app.SetVerticalSyncEnabled(true);
 
             this.connection = connection;
         }
@@ -107,7 +109,7 @@ namespace PONG_Client
                 playerPaddle.UpdatePosition();
                 opponentPaddle.UpdatePosition();
 
-                result.SetText($"LEFT {gameState.LeftPoints} -||- {gameState.RightPoints} RIGHT");
+                result.SetText(gameState.ResultMessage);
 
                 app.Draw(playerPaddle);
                 app.Draw(opponentPaddle);
@@ -125,6 +127,12 @@ namespace PONG_Client
                 CheckCollisions(clientState);
                 clientState.cursorHeight = playerPaddle.Position.Y;
                 clientState.newBallPosition = ball.Position;
+                clientState.pause = pause;
+                if (resetRequested)
+                {
+                    clientState.resetRequested = true;
+                    resetRequested = false;
+                }
                 connection.SendMessage(JsonConvert.SerializeObject(clientState));
             }
         }
@@ -214,6 +222,12 @@ namespace PONG_Client
             {
                 case Keyboard.Key.Escape:
                     OnClose(sender, EventArgs.Empty);
+                    break;
+                case Keyboard.Key.R:
+                    resetRequested = true;
+                    break;
+                case Keyboard.Key.P:
+                    pause = !pause;
                     break;
             }
         }

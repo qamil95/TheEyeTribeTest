@@ -7,7 +7,6 @@ namespace PONG_Common
         public Vector2f BallPosition;
         public double BallAngle;
         public float OpponentHeight;
-        public int LeftPoints;
-        public int RightPoints;
+        public string ResultMessage;
     }
 }

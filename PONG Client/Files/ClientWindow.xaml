@@ -69,7 +69,7 @@
         </Grid>
         <Separator Grid.Row="5"/>
         <Label Grid.Row="6" HorizontalAlignment="Center">Start game</Label>
-        <CheckBox Grid.Row="7" HorizontalAlignment="Center" VerticalAlignment="Center" Name="fullScreenGameWindow" IsChecked="True">Full screen game window</CheckBox>
+        <CheckBox Grid.Row="7" HorizontalAlignment="Center" VerticalAlignment="Center" Name="fullScreenGameWindow">Full screen game window</CheckBox>
         <Button Grid.Row="8" Click="StartGame_OnClick">START</Button>
     </Grid>
 </Window>

@@ -10,5 +10,7 @@ namespace PONG_Common
         public float cursorHeight;
         public double? newBallAngle;
         public Vector2f newBallPosition;
+        public bool pause;
+        public bool resetRequested;
     }
 }

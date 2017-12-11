@@ -24,6 +24,7 @@ namespace PONG_Server
         private Vector2f slavePaddle;
         private Vector2f ballPosition;
         private double ballAngle;
+        private string resultMessage;
 
         public ServerWindow()
         {
@@ -62,22 +63,22 @@ namespace PONG_Server
 
             ResetGame();
 
+            resultMessage = "Waiting for connection...";
+
             //start main loop of application
             while (true)
             {
                 var masterState = new GameState
                 {
                     BallPosition = ballPosition,
-                    RightPoints = rightPoints,
-                    LeftPoints = leftPoints,
+                    ResultMessage = resultMessage,
                     OpponentHeight = slavePaddle.Y,
                     BallAngle = ballAngle,
                 };
                 var slaveState = new GameState
                 {
                     BallPosition = ballPosition,
-                    RightPoints = rightPoints,
-                    LeftPoints = leftPoints,
+                    ResultMessage = resultMessage,
                     OpponentHeight = masterPaddle.Y,
                     BallAngle = ballAngle,
                 };
@@ -88,24 +89,44 @@ namespace PONG_Server
                 var masterResponse = JsonConvert.DeserializeObject<ClientState>(masterConnection.ReceiveMessage());
                 var slaveResponse = JsonConvert.DeserializeObject<ClientState>(slaveConnection.ReceiveMessage());
 
+                if (masterResponse.resetRequested || slaveResponse.resetRequested)
+                {
+                    ResetGame();
+                    continue;
+                }
+
+                if (masterResponse.pause || slaveResponse.pause)
+                {
+                    resultMessage = $"Game paused!{Environment.NewLine}Master requested: {masterResponse.pause}{Environment.NewLine}Slave requested: {slaveResponse.pause}";
+                    continue;
+                }
+
                 if (masterResponse.rightCollision)
                 {
                     leftPoints++;
+                    ballPosition = initMaster.StartBallPosition;
                 }
-                if (masterResponse.leftCollision)
+                else if (masterResponse.leftCollision)
                 {
                     rightPoints++;
+                    ballPosition = initMaster.StartBallPosition;
                 }
+                else
+                {
+                    ballPosition = masterResponse.newBallPosition;
+                }
+
+                resultMessage = $"LEFT {leftPoints} -||- {rightPoints} RIGHT";
                 masterPaddle.Y = masterResponse.cursorHeight;
                 slavePaddle.Y = slaveResponse.cursorHeight;
-                ballPosition = masterResponse.newBallPosition;
+                
                 if (masterResponse.newBallAngle != null)
                 {
                     ballAngle = masterResponse.newBallAngle.Value;
                 }
             }
         }
-
+        
         private void ResetGame()
         {
             log("Game reset called");
