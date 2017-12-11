@@ -100,7 +100,17 @@ namespace PONG_Client
 
                 app.Clear(windowColor);
 
-                var gameState = JsonConvert.DeserializeObject<GameState>(connection.ReceiveMessage());
+                GameState gameState;
+                try
+                {
+                    gameState = JsonConvert.DeserializeObject<GameState>(connection.ReceiveMessage());
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                    OnClose(app, EventArgs.Empty);
+                    return;
+                }
                 opponentHeight.SetCursorHeight(gameState.OpponentHeight);
                 ball.SetPosition(gameState.BallPosition);
                 ball.Angle = gameState.BallAngle;
@@ -133,7 +143,16 @@ namespace PONG_Client
                     clientState.resetRequested = true;
                     resetRequested = false;
                 }
-                connection.SendMessage(JsonConvert.SerializeObject(clientState));
+                try
+                {
+                    connection.SendMessage(JsonConvert.SerializeObject(clientState));
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                    OnClose(app, EventArgs.Empty);
+                    return;
+                }
             }
         }
 
@@ -148,11 +167,11 @@ namespace PONG_Client
                     return new PaddleDirectional(new KeyboardData());
 
                 case ControlType.Mouse:
-                    return new PaddleDirectional(new MouseData());
+                    return new PaddleDirectional(new MouseData(app));
                 case ControlType.Mouse_Gaussian:
-                    return new PaddleGaussian(new MouseData());
+                    return new PaddleGaussian(new MouseData(app));
                 case ControlType.Mouse_SetPosition:
-                    return new Paddle(new MouseData());
+                    return new Paddle(new MouseData(app));
 
                 case ControlType.EyeTribe:
                     return new PaddleDirectional(new EyeData());

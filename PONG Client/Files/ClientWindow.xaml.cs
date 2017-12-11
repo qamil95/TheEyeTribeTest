@@ -15,6 +15,7 @@ namespace PONG_Client
         ITrackerStateListener
     {
         private Connection connection;
+        private TcpClient client;
 
         public ClientWindow()
         {
@@ -82,17 +83,25 @@ namespace PONG_Client
 
         private void ConnectPongServer_OnClick(object sender, RoutedEventArgs e)
         {
-            var client = new TcpClient("localhost", 8888);
+            client = new TcpClient("localhost", 8888);
             connection = new Connection(client.GetStream());
 
             var msg = connection.ReceiveMessage();
-            Dispatcher.Invoke(() => pongConnectionStatus.Text = msg);
+            Dispatcher.Invoke(() =>
+            {
+                buttonStart.IsEnabled = true;
+                buttonConnectPongServer.IsEnabled = false;
+                pongConnectionStatus.Text = msg;
+            });
         }
 
         private void StartGame_OnClick(object sender, RoutedEventArgs e)
         {
+            buttonStart.IsEnabled = false;
             var game = new Game((ControlType)pongSteeringMode.SelectionBoxItem, fullScreenGameWindow.IsChecked, connection);
             game.Run((PaddlePosition)pongPaddlePosition.SelectionBoxItem);
+
+            client.Close();
         }
     }
 }

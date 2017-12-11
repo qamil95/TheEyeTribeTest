@@ -38,20 +38,23 @@ namespace PONG_Server
             listener.Start();
 
             log("Waiting for first client");
-            var client = await listener.AcceptTcpClientAsync();
-            masterConnection = new Connection(client.GetStream());
+            var masterClient = await listener.AcceptTcpClientAsync();
+            masterConnection = new Connection(masterClient.GetStream());
             Dispatcher.Invoke(() => master.Text = $"connected {DateTime.Now}");
             masterConnection.SendMessage("Connected as MASTER");
 
             log("Waiting for second client");
-            client = await listener.AcceptTcpClientAsync();
-            slaveConnection = new Connection(client.GetStream());
+            var slaveClient = await listener.AcceptTcpClientAsync();
+            slaveConnection = new Connection(slaveClient.GetStream());
             Dispatcher.Invoke(() => slave.Text = $"connected {DateTime.Now}");
             slaveConnection.SendMessage("Connected as SLAVE");
 
             listener.Stop();
 
             InitializeGame();
+            log("Lost connection!");
+            masterClient.Close();
+            slaveClient.Close();
         }
 
         private void InitializeGame()
@@ -83,11 +86,21 @@ namespace PONG_Server
                     BallAngle = ballAngle,
                 };
 
-                masterConnection.SendMessage(JsonConvert.SerializeObject(masterState));
-                slaveConnection.SendMessage(JsonConvert.SerializeObject(slaveState));
+                ClientState masterResponse;
+                ClientState slaveResponse;
 
-                var masterResponse = JsonConvert.DeserializeObject<ClientState>(masterConnection.ReceiveMessage());
-                var slaveResponse = JsonConvert.DeserializeObject<ClientState>(slaveConnection.ReceiveMessage());
+                try
+                {
+                    masterConnection.SendMessage(JsonConvert.SerializeObject(masterState));
+                    slaveConnection.SendMessage(JsonConvert.SerializeObject(slaveState));
+                    masterResponse = JsonConvert.DeserializeObject<ClientState>(masterConnection.ReceiveMessage());
+                    slaveResponse = JsonConvert.DeserializeObject<ClientState>(slaveConnection.ReceiveMessage());
+                }
+                catch (System.IO.IOException e)
+                {
+                    log(e.Message);
+                    return;
+                }
 
                 if (masterResponse.resetRequested || slaveResponse.resetRequested)
                 {

@@ -64,12 +64,12 @@
             <ComboBox Grid.Row="2" Grid.Column="1" Name="pongSteeringMode" SelectedIndex="0"></ComboBox>
             <TextBlock Grid.Row="3" Grid.Column="0" TextAlignment="Right">Paddle position</TextBlock>
             <ComboBox Grid.Row="3" Grid.Column="1" Name="pongPaddlePosition" SelectedIndex="0"></ComboBox>
-            <Button Grid.Row="0" Grid.RowSpan="3" Grid.Column="2" Click="ConnectPongServer_OnClick">Connect PONG Server</Button>
+            <Button Grid.Row="0" Grid.RowSpan="3" Grid.Column="2" Click="ConnectPongServer_OnClick" Name="buttonConnectPongServer">Connect PONG Server</Button>
             <TextBlock Grid.Row="3" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" Name="pongConnectionStatus">Waiting for connection</TextBlock>
         </Grid>
         <Separator Grid.Row="5"/>
         <Label Grid.Row="6" HorizontalAlignment="Center">Start game</Label>
         <CheckBox Grid.Row="7" HorizontalAlignment="Center" VerticalAlignment="Center" Name="fullScreenGameWindow">Full screen game window</CheckBox>
-        <Button Grid.Row="8" Click="StartGame_OnClick">START</Button>
+        <Button Grid.Row="8" Click="StartGame_OnClick" Name="buttonStart" IsEnabled="False">START</Button>
     </Grid>
 </Window>
