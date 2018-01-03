@@ -6,7 +6,6 @@ namespace PONG_Common
     {
         public bool leftCollision;
         public bool rightCollision;
-        public bool ballCollision;
         public float cursorHeight;
         public double? newBallAngle;
         public Vector2f newBallPosition;
